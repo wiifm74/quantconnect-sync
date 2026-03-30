@@ -1,0 +1,19 @@
+name: QC Auto Compare
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'QuantConnect/**'
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    uses: ./.github/workflows/qc-compare.yml
+    secrets: inherit
