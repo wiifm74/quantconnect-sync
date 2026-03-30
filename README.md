@@ -3,8 +3,8 @@
 This repository is a **template** for syncing a QuantConnect project with GitHub using the **Actions** tab (click-to-run workflows).
 
 It supports:
+- **Compare**: show what changed between QC and this repo
 - **Pull**: QuantConnect → GitHub repo
-- **Diff/Compare**: show what changed between QC and this repo
 - **Push**: GitHub repo → QuantConnect
 
 ## Requirements / prerequisites
@@ -16,7 +16,7 @@ It supports:
 1. Create a new repository from this template.
 2. Configure the required GitHub **Secrets/Variables** (below).
 
-## Configuration (GitHub Secrets / Variables)
+## Configuration (GitHub Secrets / Variables / Config File)
 
 ### GitHub Secrets (required)
 Set: **Settings → Secrets and variables → Actions → Secrets**
@@ -28,6 +28,12 @@ Set: **Settings → Secrets and variables → Actions → Secrets**
 Set: **Settings → Secrets and variables → Actions → Variables**
 
 - `QC_PROJECT_ID` — target QuantConnect project id
+
+### Config File (not required)
+Edit : .github/qc-sync-config.json
+
+- default repo folder of QuantConnect Files is "project_dir": "QuantConnect"
+- allowed file extensions to compare, push and pull
 
 ## Repo structure (recommended
 Typical layout (adjust to match your repo):
@@ -48,11 +54,3 @@ Typical layout (adjust to match your repo):
 ## Safety notes
 - Never commit tokens/credentials. Use GitHub Secrets.
 - Consider protecting `main` and using PRs for changes.
-
-## Troubleshooting
-- **Auth fails:** verify `QC_API_TOKEN` and confirm your QC account has API access enabled.
-- **Wrong project updated:** confirm `QC_PROJECT_ID`.
-- **Workflows not visible:** ensure workflow files exist in `.github/workflows/` on the main branch.
-
-## License
-Choose a license appropriate for reuse (MIT is common for templates).
