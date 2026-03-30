@@ -1,0 +1,39 @@
+name: Pull from QuantConnect
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Pull files from QuantConnect
+        env:
+          QC_USER_ID: ${{ secrets.QC_USER_ID }}
+          QC_API_TOKEN: ${{ secrets.QC_API_TOKEN }}
+          PROJECT_ID: ${{ vars.QC_PROJECT_ID }}
+        run: |
+          python3 .github/scripts/qc_sync_logic.py pull
+
+      - name: Commit pulled files and sync state
+        run: |
+          PROJECT_DIR=$(python3 -c 'import json; print(json.load(open(".github/qc-sync-config.json"))["project_dir"])')
+
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add "$PROJECT_DIR"
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Pull from QuantConnect"
+            git push
+          fi
