@@ -42,7 +42,6 @@ Typical layout (adjust to match your repo):
    - `Pull from QuantConnect` (QuantConnect → GitHub)
    - `Push to QuantConnect` (GitHub → QuantConnect)
    - `QC Auto Compare` (Compare automatically)
-   - 'QuantConnect Sync (manual sync)
 
 > Workflow names and exact behavior are defined in `.github/workflows/`
 
